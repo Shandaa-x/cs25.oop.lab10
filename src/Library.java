@@ -34,12 +34,28 @@ public class Library {
 
 		@Override
 		public Iterator<Book> iterator() {
-			// Хэрэгжүүл: minYear-с хойшхи номнуудыг буцаа
-			return null; // Оруул
+			List<Book> filtered = new ArrayList<>();
+			for (Book book : books) {
+				if (book.getYear() >= minYear) {
+					filtered.add(book);
+				}
+			}
+			return filtered.iterator();
 		}
 	}
 
 	public BookShelf getRecentBooks(int minYear) {
 		return new BookShelf(minYear);
+	}
+
+	public static void main(String[] args) {
+		Library library = new Library();
+		library.addBook("Suun zam", 2020);
+		library.addBook("Ertnii tuuh", 1999);
+		library.addBook("Orchlon", 2005);
+
+		for (Book book : library.getRecentBooks(2000)) {
+			System.out.println(book.getTitle() + ": " + book.getYear());
+		}
 	}
 }
